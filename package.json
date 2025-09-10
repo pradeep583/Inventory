@@ -15,7 +15,8 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
-    "test": "node app.js"
+    "start": "node app.js" 
+    "test": "echo \"Error : no test specified\" && exit 1"
   },
   "dependencies": {
     "accepts": "^2.0.0",
