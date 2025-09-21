@@ -12,7 +12,8 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(process.cwd(), 'index.html'));
 });
 
-
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true })); 
 
 app.use('/inventory/items',posts);
 
