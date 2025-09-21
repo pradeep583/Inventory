@@ -3,10 +3,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
+  host: process.env.DBHOST,
+  user: process.env.DBUSER,
   password: process.env.DBPASS,
   database: process.env.DBSCHEMA,
+  
 });
 
 export default pool;
