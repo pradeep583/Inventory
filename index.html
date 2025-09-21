@@ -105,7 +105,7 @@
     const tbody = $('#itemsTable tbody');
     const status = $('#status');
 
-    // 🔹 Load all items
+    // Load all items
     async function loadItems() {
       status.textContent = 'Loading...';
       const res = await fetch('/inventory/items');
@@ -124,7 +124,7 @@
       status.textContent = '';
     }
 
-    // 🔹 Delete item
+    // Delete item
     async function deleteItem(id) {
       if (!confirm(`Delete item #${id}?`)) return;
       const res = await fetch(`/inventory/items/${id}`, { method: 'DELETE' });
@@ -133,7 +133,7 @@
       await loadItems();
     }
 
-    // 🔹 Update item
+    // Update item
     async function updateItem(id) {
       const name = prompt("Enter new name:");
       const stock = Number(prompt("Enter new stock:"));
@@ -148,7 +148,7 @@
       await loadItems();
     }
 
-    // 🔹 Add new item
+    // Add new item
     $('#addForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const form = e.currentTarget;
@@ -169,13 +169,13 @@
       form.reset();
     });
 
-    // 🔹 Purchase item
+    // Purchase item
     $('#purchaseForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const form = e.currentTarget;
       const id = Number(form.id.value);
       const quantity = Number(form.quantity.value);
-      const res = await fetch(`/inventory/items/${id}/purchase`, {
+      const res = await fetch(`/inventory/items/purchase/${id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ quantity })
