@@ -3,9 +3,13 @@ import pool from './db.js';
 
 const router = express.Router();
 
+
+
 // GET all items
 router.get('/', async (req, res) => {
     const limit = parseInt(req.query.limit);
+    console.log('REQ METHOD:', req.method);
+
     try {
         const [rows] = await pool.query(
             limit > 0 
@@ -23,6 +27,7 @@ router.get('/', async (req, res) => {
 // GET single item
 router.get('/:id', async (req, res) => {
     const id = parseInt(req.params.id);
+    console.log('REQ METHOD:', req.method);
     try {
         const [rows] = await pool.query('SELECT * FROM inventory WHERE id = ?', [id]);
         if (!rows.length) return res.status(404).json({ message: 'Item not found' });
@@ -36,6 +41,9 @@ router.get('/:id', async (req, res) => {
 // POST add new item
 router.post('/', async (req, res) => {
     const { id,name, stock } = req.body;
+    console.log('REQ METHOD:', req.method);
+    console.log('REQ BODY:', req.body);
+
     if (!id || !name || stock === undefined) return res.status(400).json({ message: 'Missing fields' });
 
     try {
@@ -59,6 +67,8 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const id = parseInt(req.params.id);
     const { name, stock } = req.body;
+    console.log('REQ METHOD:', req.method);
+    console.log('REQ BODY:', req.body);
 
     try {
         const [result] = await pool.query(
@@ -78,6 +88,7 @@ router.put('/:id', async (req, res) => {
 // DELETE item
 router.delete('/:id', async (req, res) => {
     const id = parseInt(req.params.id);
+    console.log('REQ METHOD:', req.method);
     try {
         const [rows] = await pool.query('SELECT * FROM inventory WHERE id = ?', [id]);
         if (!rows.length) return res.status(404).json({ message: 'Item not found' });
@@ -94,6 +105,8 @@ router.delete('/:id', async (req, res) => {
 router.post('/purchase/:id', async (req, res) => {
     const id = parseInt(req.params.id);
     const { quantity } = req.body;
+    console.log('REQ METHOD:', req.method);
+    console.log('REQ BODY:', req.body);
 
     if (!quantity || quantity <= 0) return res.status(400).json({ message: 'Invalid quantity' });
 
